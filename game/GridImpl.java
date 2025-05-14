@@ -4,8 +4,7 @@ public class GridImpl implements Grid, Cloneable {
 
     private int grid_size; 
     private char[][] board;
-    private int row;
-    private int col;
+
 
     public GridImpl(int i) {
         grid_size = i;
