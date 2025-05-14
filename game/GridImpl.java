@@ -2,14 +2,25 @@ package game;
 
 public class GridImpl implements Grid {
 
+    private int grid_size; 
+    private char[][] board;
+
     public GridImpl(int i) {
+        grid_size = i;
+        board = new char[i][i];
+
+        for (int row = 0; row < i; row++) {
+            for (int col = 0; col < i; col++) {
+                board[row][col] = '.';
+            }
+        }
         
     }
 
     @Override
     public int getSize() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getSize'");
+        return grid_size;
+
     }
 
     @Override
