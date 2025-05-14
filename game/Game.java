@@ -44,7 +44,6 @@ public interface Game {
     // And there is no way to modify the internal state of the game
     // by modifying the grid returned
     Grid getGrid();
-    
 
     // Returns a copy of the game
     // Note that this is should be a deep copy
@@ -53,4 +52,3 @@ public interface Game {
     // by modifying the game returned
     Game copy();
 }
-
