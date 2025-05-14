@@ -2,6 +2,7 @@ package game;
 
 import java.util.Collection;
 
+
 // An interface defining the methods your game class must implement
 // It is assumed that any implementation of this interface will have a constructor
 // that takes a single parameter "size" which defines the side length of the game grid
@@ -43,7 +44,7 @@ public interface Game {
     // Which means that the grid returned should be a new object
     // And there is no way to modify the internal state of the game
     // by modifying the grid returned
-    Grid getGrid();
+    public Grid getGrid();
 
     // Returns a copy of the game
     // Note that this is should be a deep copy
@@ -52,3 +53,4 @@ public interface Game {
     // by modifying the game returned
     Game copy();
 }
+
