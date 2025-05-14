@@ -1,9 +1,11 @@
 package game;
 
-public class GridImpl implements Grid {
+public class GridImpl implements Grid, Cloneable {
 
     private int grid_size; 
     private char[][] board;
+    private int row;
+    private int col;
 
     public GridImpl(int i) {
         grid_size = i;
@@ -18,6 +20,23 @@ public class GridImpl implements Grid {
     }
 
     @Override
+    public String toString() {
+        String result = new String();
+        for (int row = 0; row < grid_size; row++) {
+            for (int col = 0; col < grid_size; col++) {
+                result += board[row][col];
+            }
+            
+            result += "\n";
+            
+        }
+
+        return result;
+    }
+        
+    
+
+    @Override
     public int getSize() {
         return grid_size;
 
@@ -25,20 +44,52 @@ public class GridImpl implements Grid {
 
     @Override
     public PieceColour getPiece(int row, int col) {
+        if (row < 0 || row >= grid_size || col < 0 || col >= grid_size) {
+            throw new IllegalArgumentException("Out of bounds");
+        }
         
-        throw new UnsupportedOperationException("Unimplemented method 'getPiece'");
+        if (board[row][col] == 'W'){
+            return PieceColour.WHITE;
+        }
+        else if (board[row][col] == 'B'){
+            return PieceColour.BLACK;
+        }
+        return PieceColour.NONE;
     }
 
     @Override
     public void setPiece(int row, int col, PieceColour piece) {
+        if (row < 0 || row >= grid_size || col < 0 || col >= grid_size) {
+            throw new IllegalArgumentException("Out of bounds");
+        }
+       
+        switch (piece){
+            case PieceColour.WHITE:
+                board[row][col] = 'W';
+                break;
+            case PieceColour.BLACK:
+                board[row][col] = 'B';
+                break;
+
+        }
         
-        throw new UnsupportedOperationException("Unimplemented method 'setPiece'");
     }
 
     @Override
-    public Grid copy() {
+    public Grid copy() { 
         
-        throw new UnsupportedOperationException("Unimplemented method 'copy'");
+        GridImpl copy = new GridImpl(this.grid_size);
+
+        for (int row = 0; row < grid_size; row++) {
+            for (int col = 0; col < grid_size; col++) {
+                copy.board[row][col] = this.board[row][col];
+            }
+        }
+
+        return copy;
+
     }
-    
+
 }
+    
+

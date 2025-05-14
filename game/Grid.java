@@ -11,6 +11,7 @@ public interface Grid {
     // Should return PieceColour.NONE if the position is empty
     // Throws IllegalArgumentException if the row or column is out of bounds
     PieceColour getPiece(int row, int col);
+     
 
     // Sets the piece at the given row and column
     // Throws IllegalArgumentException if the piece is not a valid colour
