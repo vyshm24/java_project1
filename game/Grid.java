@@ -21,7 +21,7 @@ public interface Grid {
     // Note that this is should be a deep copy
     // Which means that the grid returned should be a new object
     // And there is no way to modify the internal state of this grid
-    // by modifying the grid returned
+    // by modifying the grid returne
     Grid copy();
 }
 
