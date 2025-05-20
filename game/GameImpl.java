@@ -1,38 +1,48 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class GameImpl implements Game{
-    private boolean game_loop = true;
+  
     private Grid grid;
-    private PieceColour player = PieceColour.WHITE;
+    private PieceColour player;
 
     public GameImpl(int i) {
+        if (i <= 0){
+            throw new IllegalArgumentException("Cannot make grid that size");
+        }
         this.grid = new GridImpl(i);
-        game_loop = false;
+        this. player = PieceColour.WHITE;
+
         
     }
 
     @Override
     public boolean isOver() {
-        if (game_loop == true){
-            return true;
-        }
-        return false;
+       if(winner() != PieceColour.NONE || getMoves().isEmpty()) {
+        return true;
+       }
+       return false;
     }
 
     @Override
     public PieceColour winner() {
+        if (PathFinder.leftToRight(grid, PieceColour.WHITE) || PathFinder.topToBottom(grid, PieceColour.WHITE)){
+            return PieceColour.WHITE;
+        } else if (PathFinder.leftToRight(grid, PieceColour.BLACK) || PathFinder.topToBottom(grid, PieceColour.BLACK)){
+            return PieceColour.BLACK;
+        }
+        return PieceColour.NONE;
         
-        throw new UnsupportedOperationException("Unimplemented method 'winner'");
     }
 
     @Override
     public PieceColour currentPlayer() {
         return player;
     
-        
     }
+
     public void nextPlayer(){
         if (player == PieceColour.WHITE){
             player = PieceColour.BLACK;
@@ -43,31 +53,32 @@ public class GameImpl implements Game{
 
     @Override
     public Collection<Move> getMoves() {
+        Collection<Move> validmoves = new ArrayList<>();
+        int size = grid.getSize(); 
+        for (int row = 0; row < size; row++) {
+            for (int col = 0; col < size; col++) {
+                if (grid.getPiece(row, col) == PieceColour.NONE) {
+                    validmoves.add(new MoveImpl(row, col));
+                }
+            }
+        }
+
+        return validmoves;
         
-        throw new UnsupportedOperationException("Unimplemented method 'getMoves'");
     }
 
     @Override
     public void makeMove(Move move) {
-        // Executes a move for the current player
-        // Updates the internal game state to reflect the move
-        // Changes the current player to the other colour after the move is made
-        // If the game is over, the result of this method is undefined
-        // That is, it does not matter what this method does if the game is over
-        // Throws an IllegalArgumentException if the move is invalid
-        // An invalid move is one where the position is already occupied
-        // or the position is out of bounds
+       
         
         int row = move.getRow();
         int col = move.getCol();
 
-        if (grid.getPiece(row, col) != null){
-            throw new IllegalArgumentException("Spot Occupied");
-        }
-        try{
-            grid.setPiece(row, col, player);
-        } catch (IllegalArgumentException e){
-            
+       if (row < 0 || row >= grid.getSize() || col < 0 || col >= grid.getSize()) {
+            throw new IllegalArgumentException("Move is out of bounds");
+        }   
+       if (grid.getPiece(row, col) != PieceColour.NONE) {
+            throw new IllegalArgumentException("Spot Occupied"); 
         }
         grid.setPiece(row, col, player);
         nextPlayer();
@@ -81,10 +92,17 @@ public class GameImpl implements Game{
         return copy;
     }
 
+    private GameImpl(GameImpl other) {
+        this.grid = other.grid.copy(); 
+        this.player = other.player;    
+    }
+
     @Override
     public Game copy() {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'copy'");
+        return new GameImpl(this);
     }
+
+    
+    
     
 }
