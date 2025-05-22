@@ -6,13 +6,13 @@ public class GridImpl implements Grid, Cloneable {
     private char[][] board;
 
 
-    public GridImpl(int i) {
+    public GridImpl(int i) { //grid constructor
         grid_size = i;
-        board = new char[i][i];
+        board = new char[i][i]; //board is square 2D array 
 
         for (int row = 0; row < i; row++) {
             for (int col = 0; col < i; col++) {
-                board[row][col] = '.';
+                board[row][col] = '.'; //fills grid with dots using nested loop
             }
         }
         
@@ -20,13 +20,13 @@ public class GridImpl implements Grid, Cloneable {
 
     @Override
     public String toString() {
-        String result = new String();
+        String result = new String(); //creates string object
         for (int row = 0; row < grid_size; row++) {
             for (int col = 0; col < grid_size; col++) {
-                result += board[row][col];
+                result += board[row][col]; //concatonates each character of board to string
             }
             
-            result += "\n";
+            result += "\n";  //new line at end of each row
             
         }
 
@@ -45,11 +45,11 @@ public class GridImpl implements Grid, Cloneable {
     public PieceColour getPiece(int row, int col) {
         if (row < 0 || row >= grid_size || col < 0 || col >= grid_size) {
             throw new IllegalArgumentException("Out of bounds");
-        }
+        } //checks if entered coordinate is out of bounds
         
-        if (board[row][col] == 'W'){
-            return PieceColour.WHITE;
-        }
+        if (board[row][col] == 'W'){ //use conditional branches to assign a PieceColor to return for each type of detected character
+            return PieceColour.WHITE; 
+        } 
         else if (board[row][col] == 'B'){
             return PieceColour.BLACK;
         }
@@ -62,7 +62,7 @@ public class GridImpl implements Grid, Cloneable {
             throw new IllegalArgumentException("Out of bounds");
         }
        
-        switch (piece){
+        switch (piece){ //use switch since its best used with enum data type of PieceColour
             case PieceColour.WHITE:
                 board[row][col] = 'W';
                 break;
@@ -82,7 +82,7 @@ public class GridImpl implements Grid, Cloneable {
         for (int row = 0; row < grid_size; row++) {
             for (int col = 0; col < grid_size; col++) {
                 copy.board[row][col] = this.board[row][col];
-            }
+            } // uses nested loop to duplicate grid charatcers from original to copy grid object
         }
 
         return copy;

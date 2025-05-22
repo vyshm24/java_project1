@@ -4,9 +4,9 @@ public class MoveImpl implements Move {
     private int row;
     private int col;
 
-    public MoveImpl(int i, int j) {
-        row = i;
-        col = j;
+    public MoveImpl(int i, int j) { //constructor for move object
+        row = i; //assigns first value to row
+        col = j; //second value to column
         
 
     }
@@ -24,7 +24,7 @@ public class MoveImpl implements Move {
 
     @Override
     public String toString() {
-        return "("+ row + "," + col + ")";
+        return "("+ row + "," + col + ")"; //returns move coordinate which is a concatonated string to 
     }
     
 }
